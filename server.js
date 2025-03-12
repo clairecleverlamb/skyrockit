@@ -27,12 +27,16 @@ app.use(
     saveUninitialized: true,
   })
 );
+// passUserToView comes after session middleware but before homepage
+app.use(passUserToView); 
+
 
 app.get('/', (req, res) => {
   res.render('index.ejs', {
     user: req.session.user,
   });
 });
+
 
 app.get('/vip-lounge', (req, res) => {
   if (req.session.user) {
@@ -42,7 +46,10 @@ app.get('/vip-lounge', (req, res) => {
   }
 });
 
+// control everything that needs to be sign up and sign in 
 app.use('/auth', authController);
+// then I can use the isSignedIn middleware 
+app.use(isSignedIn);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
