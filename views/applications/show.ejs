@@ -32,7 +32,7 @@
       </div>
       <div class="show-notes-container">
         <% if (application.postingLink) { %>
-        <a href="<%= application.postingLink %>" target="_blank"
+        <a href="<%= `${application.postingLink}` %>" target="_blank"
           >View job posting</a
         >
         <% } %> <% if (application.notes) { %>
